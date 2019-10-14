@@ -8950,6 +8950,7 @@ interface(`files_unconfined',`
 	')
 
 	typeattribute $1 files_unconfined_type;
+	domain_noautowatch($1)
 ')
 
 ########################################
