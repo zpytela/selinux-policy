@@ -2449,6 +2449,25 @@ interface(`init_dontaudit_rw_utmp',`
 
 ########################################
 ## <summary>
+##	Watch the utmp file.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`init_watch_utmp',`
+	gen_require(`
+		type initrc_var_run_t;
+	')
+
+	files_search_pids($1)
+	allow $1 initrc_var_run_t:file watch_file_perms;
+')
+
+########################################
+## <summary>
 ##	Create, read, write, and delete utmp.
 ## </summary>
 ## <param name="domain">

@@ -2653,6 +2653,25 @@ interface(`files_setattr_root_dirs',`
 	allow $1 root_t:dir setattr_dir_perms;
 ')
 
+##########################################
+## <summary>
+## 	Watch the root directory.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access
+##	</summary>
+## </param>
+##
+#
+interface(`files_watch_root_dirs',`
+	gen_require(`
+		type root_t;
+	')
+
+	allow $1 root_t:dir watch_dir_perms;
+')
+
 ########################################
 ## <summary>
 ##	Relabel a rootfs filesystem.
@@ -3850,6 +3869,44 @@ interface(`files_etc_filetrans',`
 	')
 
 	filetrans_pattern($1, etc_t, $2, $3, $4)
+')
+
+##########################################
+## <summary>
+## 	Watch generic directories in /etc.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access
+##	</summary>
+## </param>
+##
+#
+interface(`files_watch_etc_dirs',`
+	gen_require(`
+		type etc_t;
+	')
+
+	allow $1 etc_t:dir watch_dir_perms;
+')
+
+##########################################
+## <summary>
+## 	Watch generic files in /etc.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access
+##	</summary>
+## </param>
+##
+#
+interface(`files_watch_etc_files',`
+	gen_require(`
+		type etc_t;
+	')
+
+	allow $1 etc_t:file watch_file_perms;
 ')
 
 ########################################
@@ -6808,6 +6865,24 @@ interface(`files_exec_usr_src_files',`
 	list_dirs_pattern($1, usr_t, src_t)
 	exec_files_pattern($1, src_t, src_t)
 	read_lnk_files_pattern($1, src_t, src_t)
+')
+
+########################################
+## <summary>
+##	Watch generic directories in /usr.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`files_watch_usr_dirs',`
+	gen_require(`
+		type usr_t;
+	')
+
+	allow $1 usr_t:dir watch_dir_perms;
 ')
 
 ########################################
