@@ -301,6 +301,7 @@ init_getattr_script_status_files(systemd_logind_t)
 init_read_utmp(systemd_logind_t)
 init_config_transient_files(systemd_logind_t)
 init_manage_pid_files(systemd_logind_t)
+init_watch_utmp(systemd_logind_t)
 
 getty_systemctl(systemd_logind_t)
 
@@ -1060,6 +1061,7 @@ manage_lnk_files_pattern(systemd_resolved_t, systemd_resolved_var_run_t, systemd
 manage_sock_files_pattern(systemd_resolved_t, systemd_resolved_var_run_t, systemd_resolved_var_run_t)
 init_pid_filetrans(systemd_resolved_t, systemd_resolved_var_run_t, dir)
 
+allow systemd_resolved_t systemd_networkd_var_run_t:dir watch_dir_perms;
 list_dirs_pattern(systemd_resolved_t, systemd_networkd_var_run_t, systemd_networkd_var_run_t)
 read_files_pattern(systemd_resolved_t, systemd_networkd_var_run_t, systemd_networkd_var_run_t)
 

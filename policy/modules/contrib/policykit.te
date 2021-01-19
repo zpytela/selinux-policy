@@ -92,7 +92,10 @@ init_list_pid_dirs(policykit_t)
 
 logging_send_syslog_msg(policykit_t)
 
+systemd_login_watch_pid_dirs(policykit_t)
+systemd_login_watch_session_dirs(policykit_t)
 systemd_machined_read_pid_files(policykit_t)
+systemd_machined_watch_pid_dirs(policykit_t)
 
 userdom_getattr_all_users(policykit_t)
 userdom_read_all_users_state(policykit_t)
