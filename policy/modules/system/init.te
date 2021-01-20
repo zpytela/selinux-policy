@@ -63,6 +63,9 @@ attribute init_run_all_scripts_domain;
 attribute initrc_transition_domain;
 # Attribute used for systemd so domains can allow systemd to create sock_files
 attribute init_sock_file_type;
+# Attribute for directories that systemd will watch based on path units
+# (see systemd.path(5) for more info)
+attribute init_watch_path_type;
 
 # Mark process types as daemons
 attribute daemon;
@@ -1951,3 +1954,4 @@ optional_policy(`
         ccs_read_config(daemon)
     ')
  ')
+
