@@ -147,6 +147,7 @@ define(`relabelfrom_dir_perms',`{ getattr relabelfrom }')
 define(`relabelto_dir_perms',`{ getattr relabelto }')
 define(`relabel_dir_perms',`{ getattr relabelfrom relabelto }')
 define(`watch_dir_perms',`{ getattr watch }')
+define(`watch_reads_dir_perms',`{ getattr watch_reads }')
 
 #
 # Regular file (file)

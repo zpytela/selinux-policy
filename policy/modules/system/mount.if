@@ -179,6 +179,25 @@ interface(`mount_watch_pid_dirs',`
 
 ########################################
 ## <summary>
+##	Watch_reads mount PID directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`mount_watch_reads_pid_dirs',`
+	gen_require(`
+		type mount_var_run_t;
+	')
+
+	files_search_pids($1)
+	watch_reads_dirs_pattern($1, mount_var_run_t, mount_var_run_t)
+')
+
+########################################
+## <summary>
 ##	Execute mount in the caller domain.
 ## </summary>
 ## <param name="domain">
