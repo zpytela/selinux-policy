@@ -89,7 +89,7 @@ interface(`cron_role',`
 	allow $2_t crontab_t:process signal_perms;
 	ps_process_pattern($2_t, crontab_t)
 
-    cron_common_crontab_template($2)
+    # -zp- cron_common_crontab_template($2)
 
 	tunable_policy(`deny_ptrace',`',`
 		allow $2_t crontab_t:process ptrace;
