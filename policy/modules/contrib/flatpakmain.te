@@ -1,0 +1,76 @@
+policy_module(flatpakmain, 1.0)
+
+type flatpak_t;
+type flatpak_exec_t;
+init_system_domain(flatpak_t, flatpak_exec_t)
+
+type flatpak_var_lib_t;
+files_type(flatpak_var_lib_t)
+
+type flatpak_tmp_t;
+files_tmp_file(flatpak_tmp_t);
+
+manage_dirs_pattern(flatpak_t, flatpak_var_lib_t, flatpak_var_lib_t)
+manage_files_pattern(flatpak_t, flatpak_var_lib_t, flatpak_var_lib_t)
+
+manage_dirs_pattern(flatpak_t, flatpak_tmp_t, flatpak_tmp_t)
+manage_files_pattern(flatpak_t, flatpak_tmp_t, flatpak_tmp_t)
+manage_sock_files_pattern(flatpak_t, flatpak_tmp_t, flatpak_tmp_t)
+files_tmp_filetrans(flatpak_t, flatpak_tmp_t, dir)
+
+allow flatpak_t self:capability sys_nice;
+allow flatpak_t self:process setsched;
+allow flatpak_t self:unix_stream_socket connectto;
+allow flatpak_t self:unix_dgram_socket create_socket_perms;
+
+corecmd_exec_bin(flatpak_t)
+corenet_tcp_connect_http_port(flatpak_t)
+#? files_map_read_etc_files(flatpak_t)
+mmap_read_files_pattern(flatpak_t, etc_t, etc_t)
+kernel_dgram_send(flatpak_t)
+sysnet_dns_name_resolve(flatpak_t)
+term_use_unallocated_ttys(flatpak_t)
+
+optional_policy(`
+	accountsd_domtrans(flatpak_t)
+')
+
+optional_policy(`
+	auth_read_passwd(flatpak_t)
+')
+
+optional_policy(`
+	dbus_system_bus_client(flatpak_t)
+	optional_policy(`
+		policykit_dbus_chat(flatpak_t)
+	')
+')
+
+optional_policy(`
+	gnome_manage_cache_home_dir(flatpak_t)
+	gnome_manage_generic_cache_files(flatpak_t)
+')
+
+optional_policy(`
+	gpg_exec(flatpak_t)
+')
+
+optional_policy(`
+	logging_stream_connect_syslog(flatpak_t)
+')
+
+optional_policy(`
+	miscfiles_manage_generic_cert_files(flatpak_t)
+	miscfiles_map_generic_certs(flatpak_t)
+')
+
+# temporary rules
+gen_require(`
+	type fedoratp_t;
+	type gpg_agent_exec_t;
+	type xdm_t;
+')
+can_exec(flatpak_t, gpg_agent_exec_t)
+flatpak_domtrans(fedoratp_t)
+flatpak_domtrans(xdm_t)
+

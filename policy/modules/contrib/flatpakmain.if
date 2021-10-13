@@ -1,0 +1,20 @@
+## <summary>Policy for flatpak</summary>
+
+########################################
+## <summary>
+##	Execute flatpak program in the flatpak domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed to transition.
+##	</summary>
+## </param>
+#
+interface(`flatpak_domtrans',`
+	gen_require(`
+		type flatpak_t, flatpak_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, flatpak_exec_t, flatpak_t)
+')
